@@ -1,4 +1,4 @@
-// g++ cpp-template-method-2.cpp -std=c++11
+// g++ cpp-template-method-2.cpp -std=c++14
 #include <iostream>
 #include <string>
 #include <memory>
@@ -82,25 +82,20 @@ protected:
     }
 };
 
-void ClientCode(DataReader *reader_) {
+void ClientCode(std::unique_ptr<DataReader> reader) {
   // ...
-  reader_->readFile();
+  reader->readFile();
   // ...
 }
 
 int main() {
-    DataReader* xmlReader = new XMLReader("example.xml");
-    ClientCode(xmlReader);
+    std::unique_ptr<XMLReader> xmlReader = make_unique<XMLReader>("example.xml");
+    ClientCode(std::move(xmlReader));
 
-    DataReader* csvReader = new CSVReader("example.csv");
-    ClientCode(csvReader);
+    std::unique_ptr<DataReader> csvReader = make_unique<CSVReader>("example.csv");
+    ClientCode(std::move(csvReader));
 
-    DataReader* jsonReader = new JSONReader("example.json");
-    ClientCode(jsonReader);
-
-    delete xmlReader;
-    delete csvReader;
-    delete jsonReader;
+    ClientCode(make_unique<JSONReader>("example.json"));
 
     return 0;
 }
