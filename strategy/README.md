@@ -1,5 +1,6 @@
 
 ## 建立策略抽象介面
+cpp-strategy.cpp  
 class Strategy 為抽象介面，不能直接實例化，需要繼承以及實作對應的介面，
 實作的策略子類別有：加法策略、減法策略、乘法策略
 
@@ -11,8 +12,10 @@ cpp-strategy.cpp
 virtual ~Strategy() = default;
 
 ## 加上智慧指標的寫法
-加上智慧指標 unique_ptr 的寫法，std::make_unique 需要 C++14 
-cpp-strategy-2.cpp
+cpp-strategy-2.cpp  
+加上智慧指標 unique_ptr 的寫法，std::make_unique 需要 C++14  
+
 
 ## 使用 lambda 函數實現策略模式
+cpp-strategy-3.cpp  
 策略模式在絕大部分現代程式語言中可以簡單地使用匿名（ lambda ）函數來實現。
