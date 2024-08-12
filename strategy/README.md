@@ -6,7 +6,6 @@ class Strategy 為抽象介面，不能直接實例化，需要繼承以及實�
 
 class Context 為上下文類別
 基本寫法，override 關鍵字需要 C++11
-cpp-strategy.cpp
 
 特別注意，虛擬解構子的部分，以免子類別沒有正常釋放記憶體造成記憶體洩漏問題。
 virtual ~Strategy() = default;
