@@ -44,8 +44,8 @@ public:
         observers.remove(observer);
     }
     void notify() override {
-        for (const auto& observer : observers) {
-            observer->update(message);
+        for (auto it = observers.begin(); it != observers.end(); it++) {
+            (*it)->update(message);
         }
     }
 
