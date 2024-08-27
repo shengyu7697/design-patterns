@@ -16,8 +16,8 @@ public:
 class ISubject {
 public:
     virtual ~ISubject() = default;
-    virtual void addObserver(std::shared_ptr<IObserver> observer) = 0;
-    virtual void removeObserver(std::shared_ptr<IObserver> observer) = 0;
+    virtual void addObserver(const std::shared_ptr<IObserver>& observer) = 0;
+    virtual void removeObserver(const std::shared_ptr<IObserver>& observer) = 0;
     virtual void notify() = 0;
 };
 
@@ -38,10 +38,10 @@ private:
 class Subject : public ISubject {
 public:
     ~Subject() {};
-    void addObserver(std::shared_ptr<IObserver> observer) override {
+    void addObserver(const std::shared_ptr<IObserver>& observer) override {
         observers.push_back(observer);
     }
-    void removeObserver(std::shared_ptr<IObserver> observer) override {
+    void removeObserver(const std::shared_ptr<IObserver>& observer) override {
         observers.remove(observer);
     }
     void notify() override {
