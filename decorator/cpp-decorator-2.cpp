@@ -1,6 +1,7 @@
-// g++ cpp-decorator.cpp -std=c++11
+// g++ cpp-decorator-2.cpp -std=c++11
 #include <iostream>
 #include <string>
+#include <memory>
 using namespace std;
 
 class Coffee {
@@ -16,9 +17,9 @@ public:
 
 class MilkDecorator : public Coffee {
 private:
-    Coffee* coffee;
+    std::shared_ptr<Coffee> coffee;
 public:
-    MilkDecorator(Coffee* c) : coffee(c) {}
+    MilkDecorator(const std::shared_ptr<Coffee>& c) : coffee(c) {}
 
     std::string getDescription() const override {
         return coffee->getDescription() + ", Milk";
@@ -31,9 +32,9 @@ public:
 
 class SugarDecorator : public Coffee {
 private:
-    Coffee* coffee;
+    std::shared_ptr<Coffee> coffee;
 public:
-    SugarDecorator(Coffee* c) : coffee(c) {}
+    SugarDecorator(const std::shared_ptr<Coffee>& c) : coffee(c) {}
 
     std::string getDescription() const override {
         return coffee->getDescription() + ", Sugar";
@@ -45,19 +46,15 @@ public:
 };
 
 int main() {
-    Coffee* myCoffee = new Coffee();
-    Coffee* myMilkCoffee = new MilkDecorator(myCoffee);
-    Coffee* mySugarMilkCoffee = new SugarDecorator(myMilkCoffee);
+    std::shared_ptr<Coffee> myCoffee = std::make_shared<Coffee>();
+    std::shared_ptr<Coffee> myMilkCoffee = std::make_shared<MilkDecorator>(myCoffee);
+    std::shared_ptr<Coffee> mySugarMilkCoffee = std::make_shared<SugarDecorator>(myMilkCoffee);
 
     std::cout << myCoffee->getDescription() << std::endl;
     std::cout << "$" << myCoffee->cost() << std::endl;
 
     std::cout << mySugarMilkCoffee->getDescription() << std::endl;
     std::cout << "$" << mySugarMilkCoffee->cost() << std::endl;
-
-    delete myCoffee;
-    delete myMilkCoffee;
-    delete mySugarMilkCoffee;
 
     return 0;
 }
